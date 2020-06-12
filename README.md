@@ -15,7 +15,7 @@ Backbase assignment project.
 - Deploy Tomcat 8 app using provided resources.
 - Create ingress for tomcat service.
 - Open application to be queried externally ( this will also include VPC changes to allow ingress connection). Use Port 8080
-- Scale solution accordingly - [here] (https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) 
+- Scale solution accordingly - [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - Use multiple AZs
 
 # Getting Started
