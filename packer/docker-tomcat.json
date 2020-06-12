@@ -3,7 +3,7 @@
     {
       "changes": [
         "LABEL maintainer {{user `maintainer`}}",
-        "ONBUILD RUN wget -O https://tomcat.apache.org/tomcat-8.0-doc/appdev/sample/sample.war $CATALINA_BASE",
+        "ONBUILD RUN wget https://tomcat.apache.org/tomcat-8.0-doc/appdev/sample/sample.war -O $CATALINA_HOME/webapps/sample.war",
         "EXPOSE 8080",
         "CMD catalina.sh run"
       ],
@@ -28,9 +28,8 @@
   ],
   "variables": {
     "maintainer": "\"Giordano Fechio <gfechio@gmail.com>\"",
-    "aws_ecr_url": "ecr.url.aws.com",
-    "tag": "tomcat-{{user `creation_timestamp`}}",
-    "creation_timestamp": "{{timestamp}}"
+    "aws_ecr_url": "https://{{env `account_id`}}.eu-central-1.console.aws.amazon.com/",
+    "tag": "tomcat-backbase"
   }
 }
 
