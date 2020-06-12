@@ -12,10 +12,12 @@ echo $(pwd)
 echo "Pulling hashicorp image"
 docker pull hashicorp/packer
 
+cd packer/
+
 echo "Running build for docker image tomcat"
-docker run hashicorp/packer build packer/docker-tomcat.json
+docker run hashicorp/packer build -var-file=variables.json docker-tomcat.json
 
 echo "Running build for AMI Image with Centos7"
-docker run hashicorp/packer build packer/centos7.json
+docker run hashicorp/packer build -var-file=variables.json centos7.json
 
 
