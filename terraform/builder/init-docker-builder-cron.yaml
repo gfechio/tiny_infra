@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-docker-builder
+spec:
+  containers:
+  - name: packer
+    image: hashicorp/packer
+    volumeMounts:
+    - name: template
+      mountPath: /mnt/template
+  initContainers:
+  - name: install
+    image: busybox
+    command:
+    - wget
+    - "-O"
+    - "https://backbase-assignement-packer-templates.s3-eu-central-1.amazonaws.com/docker-tomcat.json"
+    - http://kubernetes.io
+    volumeMounts:
+    - name: workdir
+      mountPath: "/work-dir"
+  dnsPolicy: Default
+  volumes:
+  - name: workdir
+    emptyDir: {}
