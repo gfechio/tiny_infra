@@ -50,6 +50,8 @@ Packer will be set as a cron job to build tomcate docker image and centos AMI.
 
 - Create Tomcat Pod, Deployment and Ingress
 
+- Create Auto Scaling Terraform/ AWS
+
 - Test AMI wiht given VPC accesses to internet
 
 - Test ECR repo url for uploading docker images
