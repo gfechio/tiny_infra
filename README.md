@@ -32,20 +32,30 @@ EOF
 # Deploy application
 
 
-# Tomcat 8 - K8S
-
-
-# Terraform provision cluster
+Application will be deployed using docker image created wiht packer at first bootstrap.
+Terraform will create a Deployment on EKS and a ingress as well.
+Later will be added a cronjob to refresh the image within a given time.
 
 
 # Packer Image Builder
 
+Packer will be set as a cron job to build tomcate docker image and centos AMI.
+
 
 # Improvements ( To Do )
+
+- Create EKS
+
+- Create Packer Pod, CronJob
+
+- Create Tomcat Pod, Deployment and Ingress
+
+- Test AMI wiht given VPC accesses to internet
+
+- Test ECR repo url for uploading docker images
 
 - At the moment Packer is handling the build of images `in loco` since **AWS Image Builder** needs to be supported as Terraform provider.
   https://github.com/terraform-providers/terraform-provider-aws/issues/11084
 
 - For this project it wasn't deployed any sidecars for aplication logging.
 
- 
