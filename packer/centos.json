@@ -8,6 +8,10 @@
       "ami_regions": [
         "eu-west-2"
       ],
+      "tags": {
+        "Description": "packer amazon-import {{timestamp}}",
+        "Name": "{{ user `image_name`}}"
+      },
       "source_ami_filter": {
         "filters": {
           "virtualization-type": "hvm",
