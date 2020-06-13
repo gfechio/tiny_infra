@@ -22,7 +22,9 @@
         "most_recent": true
       },
       "instance_type": "t2.micro",
-      "ssh_username": "centos",
+      "ssh_username": "ec2-user",
+      "ssh_keypair_name": "backbase",
+      "ssh_private_key_file": "{{user `private_key`}}",
       "ami_name": "{{ user `image_name`}}"
     }
   ],
