@@ -30,6 +30,7 @@ Backbase assignment project.
 	`aws ec2 create-key-pair --key-name backbase | echo "$(jq -r .KeyMaterial)" > ~/.ssh/backbase.pem`
 
 - Create a environment var file:
+
 ```cat > aws_export.env <<EOF
 export access_key="<YOUR_ACCESS_KEY>"
 export secret_key="<YOUR_SECRET_KEY>"
