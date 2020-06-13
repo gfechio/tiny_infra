@@ -39,6 +39,7 @@ export secret_key="<YOUR_SECRET_KEY>"
 export private_key_packer="~/.ssh/backbase.pem"
 EOF
 ```
+- Define AWS policies for you user, following docs in [here](packer/policy/README.md)
 
 - To generate your Kubeconfig:
 

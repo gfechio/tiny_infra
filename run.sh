@@ -21,4 +21,4 @@ echo "Running build for AMI Image with Centos7"
 docker run hashicorp/packer build -var-file=variables.json centos.json
 
 
-aws 
+aws
