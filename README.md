@@ -28,6 +28,7 @@ Backbase assignment project.
 - Create Key Pair:
 
 	`aws ec2 create-key-pair --key-name backbase | echo "$(jq -r .KeyMaterial)" > ~/.ssh/backbase.pem`
+	`cmod 400 ~/.ssh/backbase.pem`
 
 - Create a environment var file:
 
@@ -42,8 +43,8 @@ EOF
 - To generate your Kubeconfig:
 
 ```
-aws eks --region region-code update-kubeconfig --name cluster_name
 export KUBECONFIG=/my/dir/config
+aws eks --region region-code update-kubeconfig --name cluster_name
 ```
 
 
