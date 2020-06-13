@@ -6,7 +6,7 @@
 - Configure aws cli `aws configure` or change your current config under `.aws/config` to define Regions
 - Make sure you have a [AWS ACCESS KEY and AWS SECRET KEY](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html)
 
-  You can store the keys under `.aws/credentias` but **PLEASE** do not share and keep it any secret safe solution Booking is providing ATM.
+  You can store the keys under `.aws/credentias` but **PLEASE** do not share and keep it any secret safe possibly using Vault.
 - [How to import an image](https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-image-import.html)
 - See the examples in this directory about the format we are using.
 
@@ -20,5 +20,3 @@
 
 `aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document "file://role-policy.json"`
 
-# Support
-#KVM - https://booking.slack.com/archives/C0J5L0TB5

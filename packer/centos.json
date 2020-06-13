@@ -8,7 +8,6 @@
       "ami_regions": [
         "eu-west-2"
       ],
-      "ami_users": "{{user `aws_user_ids`}}",
       "vpc_filter": {
         "filters": {
           "owner-id": "{{user `account_id`}}"
@@ -22,16 +21,19 @@
       },
       "source_ami_filter": {
         "filters": {
-          "tag:Name": "{{user `base_image`}}"
+          "virtualization-type": "hvm",
+          "architecture": "x86_64",
+          "name": "amzn2*",
+          "block-device-mapping.volume-type": "ssd"
         },
         "owners": [
-          "self"
+          "amazon"
         ],
         "most_recent": true
       },
       "instance_type": "t2.micro",
       "ssh_username": "centos",
-      "ami_name": "{{user `image_name`}}"
+      "ami_name": "{{ user `image_name`}}"
     }
   ],
   "provisioners": [
@@ -44,8 +46,6 @@
     }
   ],
   "variables": {
-    "creation_timestamp": "{{timestamp}}",
-    "image_name": "centos7",
-    "base_image": "vanilla7"
+    "image_name": "backbase-centos"
   }
 }
