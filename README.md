@@ -31,7 +31,8 @@ Backbase assignment project.
 
 - Create a environment var file:
 
-```cat > aws_export.env <<EOF
+``` bash
+cat > aws_export.env <<EOF
 export access_key="<YOUR_ACCESS_KEY>"
 export secret_key="<YOUR_SECRET_KEY>"
 export private_key_packer="~/.ssh/backbase.pem"
