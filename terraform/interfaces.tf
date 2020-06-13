@@ -7,7 +7,7 @@ variable "vpc_cidr" {
 
 variable "region" {
   description = "Allows user to control region to work in. Defaults to the one configured in current provider"
-  default     = "eu-west-1"
+  default     = "eu-central-1"
 }
 
 variable "azs" {
