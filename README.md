@@ -20,7 +20,13 @@ Backbase assignment project.
 
 # Getting Started
 
+- Export you credentials for AWS:
+
+	Ex:
+	`aws configure`
+
 - Create Key Pair:
+
 	`aws ec2 create-key-pair --key-name backbase | echo "$(jq -r .KeyMaterial)" > ~/.ssh/backbase.pem`
 
 - Create a environment var file:
