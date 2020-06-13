@@ -1,5 +1,5 @@
-resource "aws_iam_role" "eks-cluster" {
-  name = "terraform-eks-eks-cluster"
+resource "aws_iam_role" "eks_cluster" {
+  name = "terraform-eks-cluster"
 
   assume_role_policy = <<POLICY
 {
@@ -19,20 +19,20 @@ POLICY
 
 resource "aws_iam_role_policy_attachment" "cluster-EKSpolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.eks-cluster.name
+  role       = aws_iam_role.eks_cluster.name
 }
 
 resource "aws_iam_role_policy_attachment" "cluster-EKSsvcpolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-  role       = aws_iam_role.eks-cluster.name
+  role       = aws_iam_role.eks_cluster.name
 }
 
-resource "aws_eks_cluster" "eks-revolut" {
-  name     = var.cluster-name
-  role_arn = aws_iam_role.eks-cluster.arn
+resource "aws_eks_cluster" "eks_backbase" {
+  name     = var.cluster_name
+  role_arn = aws_iam_role.eks_cluster.arn
 
   vpc_config {
-    security_group_ids = [aws_security_group.sg-eks-cluster.id]
+    security_group_ids = [ aws_security_group.security_group_eks_cluster.id ]
     subnet_ids         = aws_subnet.private[*].id
   }
 

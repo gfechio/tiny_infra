@@ -21,23 +21,23 @@ resource "aws_iam_policy" "ALBIngressControllerIAMPolicy" {
   policy = file("iam-policy.json")
 }
 
-resource "aws_iam_role_policy_attachment" "node-EKSWorkerNodePolicy" {
+resource "aws_iam_role_policy_attachment" "node_EKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role       = aws_iam_role.node.name
 }
 
-resource "aws_iam_role_policy_attachment" "node-AmazonEKS_CNI_Policy" {
+resource "aws_iam_role_policy_attachment" "node_AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
   role       = aws_iam_role.node.name
 }
 
-resource "aws_iam_role_policy_attachment" "node-AmazonEC2ContainerRegistryReadOnly" {
+resource "aws_iam_role_policy_attachment" "node_AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.node.name
 }
 
 
-resource "aws_iam_role_policy_attachment" "node-ALBIngressControllerIAMPolicy" {
+resource "aws_iam_role_policy_attachment" "node_ALBIngressControllerIAMPolicy" {
   policy_arn = aws_iam_policy.ALBIngressControllerIAMPolicy.arn
   role       = aws_iam_role.node.name
 }
@@ -55,9 +55,9 @@ resource "aws_eks_node_group" "workers" {
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.node-EKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.node-AmazonEKS_CNI_Policy,
-    aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
-    aws_iam_role_policy_attachment.node-ALBIngressControllerIAMPolicy,
+    aws_iam_role_policy_attachment.node_EKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly,
+    aws_iam_role_policy_attachment.node_ALBIngressControllerIAMPolicy,
   ]
 }

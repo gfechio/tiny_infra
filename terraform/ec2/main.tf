@@ -14,27 +14,19 @@ data "aws_ami" "backbase_centos" {
 }
 
 resource "aws_instance" "backbase_centos" {
-  ami                      = data.aws_ami.backbase_centos.id
-  instance_type            = "t2.micro"
+  ami                         = data.aws_ami.backbase_centos.id
+  instance_type               = "t2.micro"
+  associate_public_ip_address = true
+  vpc_security_group_ids      = [aws_security_group.ec2.id]
   tags = {
     Name = "backbase_centos"
   }
 }
 
-resource "aws_vpc" "ec2_default" {
-  cidr_block           = "10.0.0.0/16"
-  enable_dns_hostnames = true
-
-  tags = {
-    Name = "backbase_ec2"
-  }
-}
-
-
 resource "aws_security_group" "ec2" {
   name        = "backbase-centos"
   description = "Outbound access"
-  vpc_id      = aws_vpc.ec2_default.id
+  vpc_id      = aws_vpc.default.id
 
   // outbound internet access
   egress {
