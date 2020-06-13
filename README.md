@@ -21,13 +21,12 @@ Backbase assignment project.
 # Getting Started
 
 - Create a environment var file:
-`cat > aws_export.env <<EOF
-export region="<YOUR_REGION>"
+```cat > aws_export.env <<EOF
 export access_key="<YOUR_ACCESS_KEY>"
 export secret_key="<YOUR_SECRET_KEY>"
-export account_id="<YOUR_ACCOUNT_ID>"
+export private_key_packer="<PATH FOR PEM FILE>"
 EOF
-`
+```
 
 # Deploy application
 
