@@ -11,3 +11,8 @@ variable "eks_cluster_name" {
   default     = "eks-backbase"
 }
 
+variable "cluster_name" {}
+
+variable "vpc_id" {}
+
+variable "private_subnet_ids" { type = list }

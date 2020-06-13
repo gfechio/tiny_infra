@@ -33,7 +33,7 @@ resource "aws_eks_cluster" "eks_backbase" {
 
   vpc_config {
     security_group_ids = [ aws_security_group.security_group_eks_cluster.id ]
-    subnet_ids         = aws_subnet.private[*].id
+    subnet_ids         = var.private_subnet_ids
   }
 
   depends_on = [

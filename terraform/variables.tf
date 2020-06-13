@@ -1,7 +1,8 @@
 //INPUTS
 
-data "aws_region" "current" {}
 data "aws_availability_zones" "available" {}
+
+variable "aws_region" { default = "eu-central-1" }
 
 variable "vpc_cidr" {
   default     = "172.17.0.0/16"
@@ -29,12 +30,11 @@ variable "default_tag" {
   default = "backbase-assignment"
 }
 
-variable "cluster-name" {
+variable "cluster_name" {
   type    = string
   default = "eks"
 }
 
 locals {
-  region             = "${length(var.region) != 0 ? var.region : data.aws_region.current.name}"
-  availability_zones = "${lookup(var.azs, local.region, join(",", data.aws_availability_zones.available.names))}"
+  availability_zones = "${lookup(var.azs, var.region, join(",", data.aws_availability_zones.available.names))}"
 }

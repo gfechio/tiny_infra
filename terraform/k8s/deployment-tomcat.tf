@@ -44,7 +44,7 @@ resource "kubernetes_deployment" "tomcat" {
             initial_delay_seconds = 3
             period_seconds        = 3
           }
-          readness_probe {
+          readiness_probe {
             http_get {
               path = "/sample"
               port = 8080

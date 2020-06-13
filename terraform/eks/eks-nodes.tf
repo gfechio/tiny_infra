@@ -18,7 +18,7 @@ POLICY
 }
 resource "aws_iam_policy" "ALBIngressControllerIAMPolicy" {
   name   = "ALBIngressControllerIAMPolicy"
-  policy = file("iam-policy.json")
+  policy = file("${path.module}/files/iam-policy.json")
 }
 
 resource "aws_iam_role_policy_attachment" "node_EKSWorkerNodePolicy" {
@@ -43,10 +43,10 @@ resource "aws_iam_role_policy_attachment" "node_ALBIngressControllerIAMPolicy" {
 }
 
 resource "aws_eks_node_group" "workers" {
-  cluster_name    = aws_eks_cluster.eks.name
+  cluster_name    = aws_eks_cluster.eks_backbase.name
   node_group_name = "workers"
   node_role_arn   = aws_iam_role.node.arn
-  subnet_ids      = aws_subnet.private[*].id
+  subnet_ids      = var.private_subnet_ids
 
   scaling_config {
     desired_size = 2

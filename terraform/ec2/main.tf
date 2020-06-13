@@ -26,7 +26,7 @@ resource "aws_instance" "backbase_centos" {
 resource "aws_security_group" "ec2" {
   name        = "backbase-centos"
   description = "Outbound access"
-  vpc_id      = aws_vpc.default.id
+  vpc_id      = var.vpc_id
 
   // outbound internet access
   egress {

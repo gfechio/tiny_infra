@@ -1,5 +1,6 @@
 provider "aws" {
-  version = ">= 2.38.0"
+  version   = ">= 2.38.0"
+  region    = var.aws_region
 }
 
 provider "http" {}
@@ -10,11 +11,19 @@ module "vpc" {
 
 module "network" {
       source              = "./network"
+      vpc_id              = module.vpc.aws_vpc_id
+      region              = var.aws_region
+      availability_zones  = local.availability_zones
+      vpc_cidr            = var.vpc_cidr
+      newbits             = var.newbits
+      cluster_name        = var.cluster_name
 }
 
 module "eks" {
       source              = "./eks"
-      key_name            = "${var.key_name}"
+      vpc_id              = module.vpc.aws_vpc_id
+      private_subnet_ids  = module.network.private_subnet_ids
+      cluster_name        = var.cluster_name
 }
 
 module "ecr" {
@@ -23,6 +32,7 @@ module "ecr" {
 
 module "ec2" {
       source              = "./ec2"
+      vpc_id              = module.vpc.aws_vpc_id
 }
 
 module "k8s" { 
