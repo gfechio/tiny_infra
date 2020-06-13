@@ -39,6 +39,14 @@ export private_key_packer="~/.ssh/backbase.pem"
 EOF
 ```
 
+- To generate your Kubeconfig:
+
+```
+aws eks --region region-code update-kubeconfig --name cluster_name
+export KUBECONFIG=/my/dir/config
+```
+
+
 # Deploy application
 
 
