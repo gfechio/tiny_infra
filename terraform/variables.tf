@@ -1,5 +1,8 @@
 //INPUTS
 
+data "aws_region" "current" {}
+data "aws_availability_zones" "available" {}
+
 variable "vpc_cidr" {
   default     = "172.17.0.0/16"
   description = "VPC IP range in CIDR notation (including mask)"
