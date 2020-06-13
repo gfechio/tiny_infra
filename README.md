@@ -56,6 +56,8 @@ Packer will be set as a cron job to build tomcate docker image and centos AMI.
 
 - Test ECR repo url for uploading docker images
 
+- Generate output pasting SSH key for user to login
+
 - At the moment Packer is handling the build of images `in loco` since **AWS Image Builder** needs to be supported as Terraform provider.
   https://github.com/terraform-providers/terraform-provider-aws/issues/11084
 
