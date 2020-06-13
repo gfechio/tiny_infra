@@ -8,23 +8,13 @@
       "ami_regions": [
         "eu-west-2"
       ],
-      "vpc_filter": {
-        "filters": {
-          "owner-id": "{{user `account_id`}}"
-        }
-      },
-      "subnet_filter": {
-        "filters": {
-          "owner-id": "{{user `account_id`}}"
-        },
-        "most_free": true
-      },
       "source_ami_filter": {
         "filters": {
           "virtualization-type": "hvm",
           "architecture": "x86_64",
           "name": "amzn2*",
-          "block-device-mapping.volume-type": "ssd"
+          "block-device-mapping.volume-type": "gp2",
+          "root-device-type": "ebs"
         },
         "owners": [
           "amazon"
