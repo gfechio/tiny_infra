@@ -33,6 +33,7 @@ module "ecr" {
 module "ec2" {
       source              = "./ec2"
       vpc_id              = module.vpc.aws_vpc_id
+      private_subnet_ids  = module.network.private_subnet_ids
 }
 
 module "k8s" { 
