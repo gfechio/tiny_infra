@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source export.envvar
+source .aws_export.env
 
 for i in {1..80} ; do echo -n "." ;  done ; echo
 echo "Guaranteeing you have Docker and AWS CLI installed."
@@ -9,7 +9,6 @@ for i in {1..80} ; do echo -n "." ;  done ; echo
 $(which packer 1> /dev/null )
 if [ $? -gt 0 ] ; then
        packer_url=$(curl https://releases.hashicorp.com/index.json | jq '{packer}' | egrep "linux.*amd64" | sort --version-sort -r | head -1 | awk -F[\"] '{print $4}') #"
-   fi
 fi
 
 $(which terraform 1> /dev/null )
@@ -34,46 +33,90 @@ echo "This script requires interaction"
 for i in {1..80} ; do echo -n "." ;  done ; echo
 
 for i in {1..80} ; do echo -n "." ;  done ; echo
-echo "Generating ECR for docker image."
+read -r -p "Create Centos AMI? [Y/n] " input
+case $input in
+    [yY][eE][sS]|[yY])
+		cd packer/
+		$(which packer) build -var-file=variables.json centos.json
+		cd ..
+		;;
+    [nN][oO]|[nN])
+		echo "Continuing..."
+       		;;
+    *)
+	echo "Invalid input"
+	exit 1
+	;;
+esac
+
 for i in {1..80} ; do echo -n "." ;  done ; echo
+read -r -p "Deploy Terraform EKS/EC2/ECR Infra? [Y/n] " input
+case $input in
+    [yY][eE][sS]|[yY])
+		terraform_eks
+		;;
+    [nN][oO]|[nN])
+		echo "Continuing..."
+       		;;
+    *)
+	echo "Invalid input"
+	exit 1
+	;;
+esac
 
-# DEPLOY INFRASTRUCURE EKS/ECR and EC2 
-
-cd terraform
-
-echo "Running terraform init..."
-terraform init
-
-echo "Running terraform plan..."
-terraform plan
-
-echo "Running terraform apply..."
-terraform apply
-
-
-
-# RUN PACKER BUILD FOR CENTOS AND DOCKER IMAGE W/ TOMCAT
-cd packer/
-
-echo "Running build for AMI Image with Centos. To ensure Centos AMI wiht curl."
-$(which packer) build -var-file=variables.json centos.json
-
-echo "Running build for docker image tomcat"
-$(which packer) build -var-file=variables.json docker-tomcat.json
+for i in {1..80} ; do echo -n "." ;  done ; echo
+read -r -p "Create Docker Image for tomcat? [Y/n] " input
+case $input in
+    [yY][eE][sS]|[yY])
+		cd packer/
+		$(which packer) build -var-file=variables.json docker-tomcat.json
+		cd ..
+		;;
+    [nN][oO]|[nN])
+		echo "Continuing..."
+       		;;
+    *)
+	echo "Invalid input"
+	exit 1
+	;;
+esac
 
 
+for i in {1..80} ; do echo -n "." ;  done ; echo
+read -r -p "Deploy Terraform K8S services? [Y/n] " input
+case $input in
+    [yY][eE][sS]|[yY])
+		terraform_k8s
+		;;
+    [nN][oO]|[nN])
+		echo "You can run the configs using ./k8s/deploy.sh"
+       		;;
+    *)
+	echo "Invalid input"
+	exit 1
+	;;
+esac
 
+function terraform_eks() {
+	# DEPLOY INFRASTRUCURE EKS/ECR and EC2 
+	cd terraform
+	echo "Running terraform init..."
+	terraform init
+	echo "Running terraform plan..."
+	terraform plan
+	echo "Running terraform apply..."
+	terraform apply
+	cd ..
+}
 
-# DEPLOY CONTAIRNIZED SERVICE WITH TERRAFORM
-cd k8s/terraform
-
-echo "Running terraform init..."
-terraform init
-
-echo "Running terraform plan..."
-terraform plan
-
-echo "Running terraform apply..."
-terraform apply
-
-cd -
+function terraform_k8s() {
+	# DEPLOY CONTAIRNIZED SERVICE WITH TERRAFORM
+	cd k8s/terraform
+	echo "Running terraform init..."
+	terraform init
+	echo "Running terraform plan..."
+	terraform plan
+	echo "Running terraform apply..."
+	terraform apply
+	cd -
+}

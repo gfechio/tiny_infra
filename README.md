@@ -50,8 +50,6 @@ EOF
 ```
 - Define AWS policies for you user, following docs in [here](packer/policy/README.md)
 
-- Download and install packer: [here](https://www.packer.io/downloads/)
-
 - To generate your Kubeconfig :
 
 ```
@@ -73,14 +71,7 @@ Executing `run.sh` the following should happen:
 
 To deploy Tomcat K8S service not using the provided EKS follow this.
 - `cd k8s` *where you can see the k8s yaml config*
-- `run.sh` * applying the config step by step on the available K8S on you current config
-
-
-# Tomcat service using Terraform and EKS
-
-*This is not complete at the moment*
-- cd k8s/terraform
-- terraform init / plan / apply
+- `deploy.sh` * applying the config step by step on the available K8S on you current config
 
 # Improvements ( To Do )
 
