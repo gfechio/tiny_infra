@@ -62,9 +62,10 @@ aws eks --region region-code update-kubeconfig --name cluster_name
 Executing `run.sh` the following should happen:
 - Download and install AWS cli/ Docker / packer / terraform
 - Create a ECR repo named `tomcat_backbase` for EKS use.
-- Deploy an EKS cluster adding deployment and ingress services for tomcat.
+- Deploy an EKS cluster to test tomcat K8S config.
 - Generate and AMI and upload it to AWS to later use.
 	"Most of AWS default AMIs already has curl installed, but packer process is making sure this is true"
+- Instantiate EC2 on public subnet to access google and have backbase.pem to be accesible by SSH with ingress and egress rules.
 - Generate a docker image fetching **sample.war** from Backbase givne URL and adding it to the container under **$CATALINA_HOME**.
 
 
