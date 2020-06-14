@@ -8,6 +8,16 @@ Backbase assignment project.
 - Create an scalabe Kubernetes deploy of a given tomcat. Setup ingress and autoscale.
 - Create an EC2 instance using terraform, the EC2 must be able to query Google, using curl.
 
+
+# Disclaimer
+
+This project was built using the following versions:
+- Packer v1.6.0
+- Terraform v0.12.16
+- Kubectl v1.18.2
+- EKS v1.16.8-eks-e16311
+- Docker 19.03.11
+
 # Execution Plan
 
 - Generate an K8S cluster to deploy the tomcat application.
@@ -69,10 +79,6 @@ To deploy Tomcat K8S service not using the provided EKS follow this.
 - Create Tomcat Pod, Deployment and Ingress
 
 - Create Auto Scaling Terraform/ AWS
-
-- Test ECR repo url for uploading docker images
-
-- Generate output pasting SSH key for user to login
 
 - At the moment Packer is handling the build of images `in loco` since **AWS Image Builder** needs to be supported as Terraform provider.
   https://github.com/terraform-providers/terraform-provider-aws/issues/11084
