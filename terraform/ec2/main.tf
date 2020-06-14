@@ -16,7 +16,7 @@ data "aws_ami" "backbase_centos" {
 resource "aws_instance" "backbase_centos" {
   ami                         = data.aws_ami.backbase_centos.id
   instance_type               = "t2.micro"
-  subnet_id                   = element(var.private_subnet_ids, 0) 
+  subnet_id                   = element(var.public_subnet_ids, 0) 
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.ec2.id]
   tags = {
