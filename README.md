@@ -62,26 +62,30 @@ aws eks --region region-code update-kubeconfig --name cluster_name
 Executing `run.sh` the following should happen:
 - Download and install AWS cli/ Docker / packer / terraform
 - Create a ECR repo named `tomcat_backbase` for EKS use.
+- Deploy an EKS cluster adding deployment and ingress services for tomcat.
 - Generate and AMI and upload it to AWS to later use.
 	"Most of AWS default AMIs already has curl installed, but packer process is making sure this is true"
 - Generate a docker image fetching **sample.war** from Backbase givne URL and adding it to the container under **$CATALINA_HOME**.
-- Deploy an EKS cluster adding deployment and ingress services for tomcat.
 
 
-# Tomcat non-EKS
+# Tomcat non-Terraform in EKS
 
 To deploy Tomcat K8S service not using the provided EKS follow this.
 - `cd k8s` *where you can see the k8s yaml config*
 - `run.sh` * applying the config step by step on the available K8S on you current config
 
+
+# Tomcat service using Terraform and EKS
+
+*This is not complete at the moment*
+- cd k8s/terraform
+- terraform init / plan / apply
+
 # Improvements ( To Do )
 
 - Create Tomcat Pod, Deployment and Ingress
-
 - Create Auto Scaling Terraform/ AWS
-
 - At the moment Packer is handling the build of images `in loco` since **AWS Image Builder** needs to be supported as Terraform provider.
   https://github.com/terraform-providers/terraform-provider-aws/issues/11084
-
 - For this project it wasn't deployed any sidecars for aplication logging.
 
