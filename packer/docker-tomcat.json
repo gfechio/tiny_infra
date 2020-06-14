@@ -12,24 +12,24 @@
       "type": "docker"
     }
   ],
-  "post-processors": [
+ "post-processors": [
+    [
       {
-        "type": "docker-tag",
-        "repository": "k8s_assginment/tomcat",
-        "tag": "{{user `tag`}}"
+        "repository": "{{user `aws_ecr_url`}}/tomcat_backbase",
+        "tags": [
+          "latest"
+        ],
+        "type": "docker-tag"
       },
       {
         "type": "docker-push",
         "ecr_login": true,
-        "access_key": "{{user `aws_access_key`}}",
-        "secret_key": "{{user `aws_secret_key`}}",
         "login_server": "{{user `aws_ecr_url`}}"
       }
+    ]
   ],
   "variables": {
     "maintainer": "\"Giordano Fechio <gfechio@gmail.com>\"",
-    "aws_ecr_url": "https://{{env `account_id`}}.eu-central-1.console.aws.amazon.com/",
-    "tag": "tomcat-backbase"
+    "aws_ecr_url": "{{ user `account_id` }}.dkr.ecr.eu-central-1.amazonaws.com"
   }
 }
-

@@ -1,7 +1,7 @@
 {
     "region": "{{env `region`}}",
-    "account_id": "{{ env `account_id`}}",
-    "access_key": "{{env `aws_access_key`}}",
-    "secret_key": "{{env `aws_secret_key`}}",
-    "private_key": "{{ env `private_key_packer`}}"
+    "account_id": "{{env `account_id`}}",
+    "access_key": "{{env `access_key`}}",
+    "secret_key": "{{env `secret_key`}}",
+    "private_key": "{{env `private_key`}}"
 }
