@@ -8,7 +8,6 @@ Backbase assignment project.
 - Create an scalabe Kubernetes deploy of a given tomcat. Setup ingress and autoscale.
 - Create an EC2 instance using terraform, the EC2 must be able to query Google, using curl.
 
-
 # Execution Plan
 
 - Generate an K8S cluster to deploy the tomcat application.
@@ -36,43 +35,40 @@ Backbase assignment project.
 cat > aws_export.env <<EOF
 export access_key="<YOUR_ACCESS_KEY>"
 export secret_key="<YOUR_SECRET_KEY>"
-export private_key_packer="~/.ssh/backbase.pem"
+export private_key="~/.ssh/backbase.pem"
 EOF
 ```
 - Define AWS policies for you user, following docs in [here](packer/policy/README.md)
 
-- To generate your Kubeconfig:
+- Download and install packer: [here](https://www.packer.io/downloads/)
+
+- To generate your Kubeconfig :
 
 ```
 export KUBECONFIG=/my/dir/config
 aws eks --region region-code update-kubeconfig --name cluster_name
 ```
 
+Executing `run.sh` the following should happen:
+- Download and install AWS cli/ Docker / packer / terraform
+- Create a ECR repo named `tomcat_backbase` for EKS use.
+- Generate and AMI and upload it to AWS to later use.
+	"Most of AWS default AMIs already has curl installed, but packer process is making sure this is true"
+- Generate a docker image fetching **sample.war** from Backbase givne URL and adding it to the container under **$CATALINA_HOME**.
+- Deploy an EKS cluster adding deployment and ingress services for tomcat.
 
-# Deploy application
 
+# Tomcat non-EKS
 
-Application will be deployed using docker image created wiht packer at first bootstrap.
-Terraform will create a Deployment on EKS and a ingress as well.
-Later will be added a cronjob to refresh the image within a given time.
-
-
-# Packer Image Builder
-
-Packer will be set as a cron job to build tomcate docker image and centos AMI.
-
+To deploy Tomcat K8S service not using the provided EKS follow this.
+- `cd k8s` *where you can see the k8s yaml config*
+- `run.sh` * applying the config step by step on the available K8S on you current config
 
 # Improvements ( To Do )
-
-- Create EKS
-
-- Create Packer Pod, CronJob
 
 - Create Tomcat Pod, Deployment and Ingress
 
 - Create Auto Scaling Terraform/ AWS
-
-- Test AMI wiht given VPC accesses to internet
 
 - Test ECR repo url for uploading docker images
 
