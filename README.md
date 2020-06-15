@@ -29,6 +29,8 @@ This project was built using the following versions:
 
 # Getting Started
 
+- Have [jq](https://stedolan.github.io/jq/) installed.
+
 - Export you credentials for AWS:
 
 	Ex:
@@ -75,10 +77,7 @@ To deploy Tomcat K8S service not using the provided EKS follow this.
 
 # Improvements ( To Do )
 
-- Create Tomcat Pod, Deployment and Ingress
-- Create Auto Scaling Terraform/ AWS
 - At the moment Packer is handling the build of images `in loco` since **AWS Image Builder** needs to be supported as Terraform provider.
   https://github.com/terraform-providers/terraform-provider-aws/issues/11084
 - For this project it wasn't deployed any sidecars for aplication logging.
-- Create canary - blue/green deployment.
-
+- Implement canary/(blue/green) deployment.
