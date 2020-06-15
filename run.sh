@@ -98,9 +98,8 @@ for i in {1..80} ; do echo -n "." ;  done ; echo
 read -r -p "Create Docker Image for tomcat? [Y/n] " input
 case $input in
     [yY][eE][sS]|[yY])
-		cd packer/
-		$(which packer) build -var-file=variables.json docker-tomcat.json
-		cd ..
+		docker build -t $account_id.dkr.ecr.eu-central-1.amazonaws.com/tomcat_backbase .
+		docker push  $account_id.dkr.ecr.eu-central-1.amazonaws.com/tomcat_backbase
 		;;
     [nN][oO]|[nN])
 		echo "Continuing..."

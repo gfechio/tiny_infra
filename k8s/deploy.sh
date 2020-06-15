@@ -1,8 +1,9 @@
 echo "Prepare environment"
 sed -i -e "s/ACCOUNT_ID/$account_id/g" app_deployment.yaml
-aws ec2 describe-vpcs --filters "Name=tag:Name, Values=backbase-assignment" | jq .Vpcs[0].VpcId
-sed -i 's/NEW-VPC-ID/<information from last command>/' alb-ingress-controller.yaml
-aws eks --region eu-central-1 update-kubeconfig --name eks
+NEW_VPC_ID=$(aws ec2 describe-vpcs --filters "Name=tag:Name, Values=backbase-assignment" | jq .Vpcs[0].VpcId)
+sed -i "s/NEW-VPC-ID/$NEW_VPC_ID/" alb-ingress-controller.yaml
+sed -i "s/REGION/$region/" alb-ingress-controller.yaml
+aws eks --region $region update-kubeconfig --name eks
 
 echo "Deploy K8S services"
 kubectl apply -f rbac-role.yaml

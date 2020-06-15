@@ -17,8 +17,18 @@ spec:
       - image: ACCOUNT_ID.dkr.ecr.eu-central-1.amazonaws.com/tomcat_backbase:latest
         imagePullPolicy: Always
         name: "tomcat"
-        ports:
-        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /sample
+            port: 8080
+            scheme: HTTP
+        livenessProbe:
+          httpGet:
+            path: /sample
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
   strategy:
     type: RollingUpdate
     rollingUpdate:

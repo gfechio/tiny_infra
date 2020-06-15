@@ -50,6 +50,10 @@ resource "kubernetes_service_account" "alb_ingress_controller" {
     labels = {
       "app.kubernetes.io/name" = "alb-ingress-controller"
     }
+
+    annotations = {
+      "eks.amazonaws.com/role_arn" = "arn:aws:iam::438717801519:role/terraform-eks-cluster"
+    }
   }
 }
 
