@@ -81,3 +81,4 @@ To deploy Tomcat K8S service not using the provided EKS follow this.
   https://github.com/terraform-providers/terraform-provider-aws/issues/11084
 - For this project it wasn't deployed any sidecars for aplication logging.
 - Implement canary/(blue/green) deployment.
+- Create Helm Chart to deploy service.
