@@ -5,7 +5,7 @@ metadata:
   namespace: "tomcat"
   annotations:
     kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/scheme: external
   labels:
     app: tomcat
 spec:

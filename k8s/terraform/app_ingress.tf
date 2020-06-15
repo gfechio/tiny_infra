@@ -8,7 +8,7 @@ resource "kubernetes_ingress" "tomcat_ingress" {
     }
 
     annotations = {
-      "alb.ingress.kubernetes.io/scheme" = "internal"
+      "alb.ingress.kubernetes.io/scheme" = "external"
 
       "kubernetes.io/ingress.class" = "alb"
     }
