@@ -1,5 +1,30 @@
 #!/bin/bash
 
+function terraform_eks() {
+	# DEPLOY INFRASTRUCURE EKS/ECR and EC2 
+	cd terraform
+	echo "Running terraform init..."
+	terraform init
+	echo "Running terraform plan..."
+	terraform plan
+	echo "Running terraform apply..."
+	terraform apply
+	cd ..
+}
+
+function terraform_k8s() {
+	# DEPLOY CONTAIRNIZED SERVICE WITH TERRAFORM
+	cd k8s/terraform
+    sed -i -e "s/ACCOUNT_ID/$account_id/g" app_deployment.tf
+	echo "Running terraform init..."
+	terraform init
+	echo "Running terraform plan..."
+	terraform plan
+	echo "Running terraform apply..."
+	terraform apply
+	cd -
+}
+
 source .aws_export.env
 
 for i in {1..80} ; do echo -n "." ;  done ; echo
@@ -9,11 +34,13 @@ for i in {1..80} ; do echo -n "." ;  done ; echo
 $(which packer 1> /dev/null )
 if [ $? -gt 0 ] ; then
        packer_url=$(curl https://releases.hashicorp.com/index.json | jq '{packer}' | egrep "linux.*amd64" | sort --version-sort -r | head -1 | awk -F[\"] '{print $4}') #"
+       wget $packer_url -O ~/ ; unzip ~/packer_*.zip ; chmod +x ~/packer ; mv ~/packer /usr/local/bin/
 fi
 
 $(which terraform 1> /dev/null )
 if [ $? -gt 0 ] ; then
        terraform_url=$(curl https://releases.hashicorp.com/index.json | jq '{terraform}' | egrep "linux.*amd64" | sort --version-sort -r | head -1 | awk -F[\"] '{print $4}') #"
+       wget $terraform_url -O ~/ ; unzip ~/terraform_*.zip ; chmod +x ~/terraform ; mv ~/terraform /usr/local/bin/
 fi
 
 $(which docker 1> /dev/null )
@@ -97,26 +124,3 @@ case $input in
 	;;
 esac
 
-function terraform_eks() {
-	# DEPLOY INFRASTRUCURE EKS/ECR and EC2 
-	cd terraform
-	echo "Running terraform init..."
-	terraform init
-	echo "Running terraform plan..."
-	terraform plan
-	echo "Running terraform apply..."
-	terraform apply
-	cd ..
-}
-
-function terraform_k8s() {
-	# DEPLOY CONTAIRNIZED SERVICE WITH TERRAFORM
-	cd k8s/terraform
-	echo "Running terraform init..."
-	terraform init
-	echo "Running terraform plan..."
-	terraform plan
-	echo "Running terraform apply..."
-	terraform apply
-	cd -
-}

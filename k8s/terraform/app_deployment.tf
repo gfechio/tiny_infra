@@ -23,7 +23,7 @@ resource "kubernetes_deployment" "tomcat" {
       spec {
         container {
           name  = "tomcat"
-          image = "ACCOUNT_ID.dkr.ecr.eu-central-1.amazonaws.com/tomcat_backbase:latest"
+          image = "438717801519.dkr.ecr.eu-central-1.amazonaws.com/tomcat_backbase:latest"
 
           port {
             container_port = 8080

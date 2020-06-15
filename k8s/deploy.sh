@@ -1,3 +1,4 @@
+sed -i -e "s/ACCOUNT_ID/$account_id/g" k8s/app_deployment.yaml
 aws eks --region eu-central-1 update-kubeconfig --name eks
 kubectl apply -f rbac-role.yaml
 kubectl apply -f alb-ingress-controller.yaml
