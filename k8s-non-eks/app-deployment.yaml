@@ -14,7 +14,7 @@ spec:
         app: "tomcat"
     spec:
       containers:
-      - image: ACCOUNT_ID.dkr.ecr.eu-central-1.amazonaws.com/tomcat_backbase:latest
+      - image: tomcat:8.0
         imagePullPolicy: Always
         name: "tomcat"
         readinessProbe:
