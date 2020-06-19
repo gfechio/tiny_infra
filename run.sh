@@ -14,9 +14,7 @@ function terraform_eks() {
 
 function terraform_k8s() {
 	# DEPLOY CONTAIRNIZED SERVICE WITH TERRAFORM
-    aws eks --region eu-central-1 update-kubeconfig --name eks
 	cd k8s/terraform
-    sed -i -e "s/ACCOUNT_ID/$account_id/g" app_deployment.tf
 	aws ec2 describe-vpcs --filters "Name=tag:Name, Values=project-assignment" | jq .Vpcs[0].VpcId
 	sed -i 's/NEW-VPC-ID/<information from last command>/' alb-ingress-controller.yaml
 	echo "Running terraform init..."

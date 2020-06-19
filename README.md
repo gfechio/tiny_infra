@@ -1,5 +1,6 @@
-# Project
-Project assignment for infra using K8S and terraform.
+# Project: Tiny Infra
+
+Create a simple and small infra project using Terraform.
 
 ![Diagram](project.png)
 
@@ -25,7 +26,6 @@ This project was built using the following versions:
 - Create ingress for tomcat service.
 - Open application to be queried externally ( this will also include VPC changes to allow ingress connection). Use Port 8080
 - Scale solution accordingly - [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
-- Use multiple AZs
 
 # Getting Started
 
@@ -80,4 +80,5 @@ To deploy Tomcat K8S service not using the provided EKS follow this.
   https://github.com/terraform-providers/terraform-provider-aws/issues/11084
 - For this project it wasn't deployed any sidecars for aplication logging.
 - Implement canary/(blue/green) deployment.
+- Use multiple AZs
 - Create Helm Chart to deploy service.
