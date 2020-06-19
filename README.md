@@ -1,5 +1,5 @@
-# Backbase
-Backbase assignment project.
+# Project
+Project assignment for infra using K8S and terraform.
 
 ![Diagram](project.png)
 
@@ -66,7 +66,6 @@ Executing `run.sh` the following should happen:
 - Generate and AMI and upload it to AWS to later use.
 	"Most of AWS default AMIs already has curl installed, but packer process is making sure this is true"
 - Instantiate EC2 on public subnet to access google and have project.pem to be accesible by SSH with ingress and egress rules.
-- Generate a docker image fetching **sample.war** from Backbase givne URL and adding it to the container under **$CATALINA_HOME**.
 
 
 # Tomcat non-Terraform in EKS
