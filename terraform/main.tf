@@ -35,3 +35,12 @@ module "ec2" {
       vpc_id              = module.vpc.aws_vpc_id
       public_subnet_ids   = module.network.public_subnet_ids
 }
+
+module "app" {
+      source              = "./app"
+      region              = var.aws_region
+      availability_zones  = local.availability_zones
+      vpc_id              = module.vpc.aws_vpc_id
+      ecr_url             = module.ecr.ecr_url
+}
+

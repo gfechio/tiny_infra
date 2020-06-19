@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function terraform_eks() {
-	# DEPLOY INFRASTRUCURE EKS/ECR and EC2 
+	# DEPLOY INFRASTRUCURE EKS/ECR and EC2
 	cd terraform
 	echo "Running terraform init..."
 	terraform init
@@ -10,20 +10,6 @@ function terraform_eks() {
 	echo "Running terraform apply..."
 	terraform apply
 	cd ..
-}
-
-function terraform_k8s() {
-	# DEPLOY CONTAIRNIZED SERVICE WITH TERRAFORM
-	cd k8s/terraform
-	aws ec2 describe-vpcs --filters "Name=tag:Name, Values=project-assignment" | jq .Vpcs[0].VpcId
-	sed -i 's/NEW-VPC-ID/<information from last command>/' alb-ingress-controller.yaml
-	echo "Running terraform init..."
-	terraform init
-	echo "Running terraform plan..."
-	terraform plan
-	echo "Running terraform apply..."
-	terraform apply
-	cd -
 }
 
 source .aws_export.env
@@ -108,19 +94,4 @@ case $input in
 	;;
 esac
 
-
-for i in {1..80} ; do echo -n "." ;  done ; echo
-read -r -p "Deploy Terraform K8S services? [Y/n] " input
-case $input in
-    [yY][eE][sS]|[yY])
-		terraform_k8s
-		;;
-    [nN][oO]|[nN])
-		echo "You can run the configs using ./k8s/deploy.sh"
-       		;;
-    *)
-	echo "Invalid input"
-	exit 1
-	;;
-esac
 
