@@ -20,13 +20,13 @@ for i in {1..80} ; do echo -n "." ;  done ; echo
 
 $(which packer 1> /dev/null )
 if [ $? -gt 0 ] ; then
-       packer_url=$(curl https://releases.hashicorp.com/index.json | jq '{packer}' | egrep "linux.*amd64" | sort --version-sort -r | head -1 | awk -F[\"] '{print $4}') #"
+       packer_url=$(curl https://releases.hashicorp.com/index.json | jq '{packer}' | egrep "linux.*amd64" | sort --version-sort -r | head -1 | cut -d\" -f4)
        wget $packer_url -O ~/ ; unzip ~/packer_*.zip ; chmod +x ~/packer ; mv ~/packer /usr/local/bin/
 fi
 
 $(which terraform 1> /dev/null )
 if [ $? -gt 0 ] ; then
-       terraform_url=$(curl https://releases.hashicorp.com/index.json | jq '{terraform}' | egrep "linux.*amd64" | sort --version-sort -r | head -1 | awk -F[\"] '{print $4}') #"
+       terraform_url=$(curl https://releases.hashicorp.com/index.json | jq '{terraform}' | egrep "linux.*amd64" | sort --version-sort -r | head -1 | cut -d\" -f4)
        wget $terraform_url -O ~/ ; unzip ~/terraform_*.zip ; chmod +x ~/terraform ; mv ~/terraform /usr/local/bin/
 fi
 
@@ -64,26 +64,11 @@ case $input in
 esac
 
 for i in {1..80} ; do echo -n "." ;  done ; echo
-read -r -p "Deploy Terraform EKS/EC2/ECR Infra? [Y/n] " input
-case $input in
-    [yY][eE][sS]|[yY])
-		terraform_eks
-		;;
-    [nN][oO]|[nN])
-		echo "Continuing..."
-       		;;
-    *)
-	echo "Invalid input"
-	exit 1
-	;;
-esac
-
-for i in {1..80} ; do echo -n "." ;  done ; echo
 read -r -p "Create Docker Image for tomcat? [Y/n] " input
 case $input in
     [yY][eE][sS]|[yY])
-		docker build -t $account_id.dkr.ecr.eu-central-1.amazonaws.com/tomcat_project .
-		docker push  $account_id.dkr.ecr.eu-central-1.amazonaws.com/tomcat_project
+		docker build -t $account_id.dkr.ecr.$region.amazonaws.com/tomcat_project .
+		docker push  $account_id.dkr.ecr.$region.amazonaws.com/tomcat_project
 		;;
     [nN][oO]|[nN])
 		echo "Continuing..."
@@ -94,4 +79,4 @@ case $input in
 	;;
 esac
 
-
+echo "Now you can apply terraform infra."
