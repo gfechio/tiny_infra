@@ -1,13 +1,19 @@
 
-module "tomcat-deployment" {
+module "app-namespace" {
 }
 
-module "tomcat-ingress" {
-
+module "app-services" {
 }
 
-resource "null_resource" "build_docker_image" {
-  provisioner "local-exec" {
-    command = "cd "
-  }
+module "app-deployment" {
+}
+
+module "app-ingress" {
+}
+
+module "rbac-role" {
+}
+
+module "alb-ingress-controller" {
+
 }
