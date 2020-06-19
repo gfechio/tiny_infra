@@ -2,7 +2,7 @@ data "aws_region" "current" {}
 data "aws_availability_zones" "available" {}
 
 variable "key_name" {
-   default = "backbase-key"
+   default = "project-key"
 }
 
 variable "cluster_name" {}

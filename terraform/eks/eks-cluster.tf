@@ -27,7 +27,7 @@ resource "aws_iam_role_policy_attachment" "cluster-EKSsvcpolicy" {
   role       = aws_iam_role.eks_cluster.name
 }
 
-resource "aws_eks_cluster" "eks_backbase" {
+resource "aws_eks_cluster" "eks_project" {
   name     = var.cluster_name
   role_arn = aws_iam_role.eks_cluster.arn
 

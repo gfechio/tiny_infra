@@ -2,30 +2,30 @@ data "aws_region" "current" {}
 
 data "aws_availability_zones" "available" {}
 
-data "aws_ami" "backbase_centos" {
+data "aws_ami" "project_centos" {
   most_recent = true
 
   filter {
     name   = "name"
-    values = ["backbase-centos"]
+    values = ["project-centos"]
   }
 
   owners = ["self"]
 }
 
-resource "aws_instance" "backbase_centos" {
-  ami                         = data.aws_ami.backbase_centos.id
+resource "aws_instance" "project_centos" {
+  ami                         = data.aws_ami.project_centos.id
   instance_type               = "t2.micro"
   subnet_id                   = element(var.public_subnet_ids, 0) 
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.ec2.id]
   tags = {
-    Name = "backbase_centos"
+    Name = "project_centos"
   }
 }
 
 resource "aws_security_group" "ec2" {
-  name        = "backbase-centos"
+  name        = "project-centos"
   description = "Outbound access"
   vpc_id      = var.vpc_id
 
@@ -38,7 +38,7 @@ resource "aws_security_group" "ec2" {
   }
 
   tags = {
-    Name = "backbase-centos-security-group-outbound"
+    Name = "project-centos-security-group-outbound"
   }
 }
 

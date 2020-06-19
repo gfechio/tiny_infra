@@ -27,7 +27,7 @@ variable "newbits" {
 
 variable "default_tag" {
   type    = string
-  default = "backbase-assignment"
+  default = "project-assignment"
 }
 
 variable "cluster_name" {

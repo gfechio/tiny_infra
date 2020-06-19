@@ -27,7 +27,7 @@
       },
       "instance_type": "t2.micro",
       "ssh_username": "ec2-user",
-      "ssh_keypair_name": "backbase",
+      "ssh_keypair_name": "project",
       "ssh_private_key_file": "{{user `private_key`}}",
       "ami_name": "{{ user `image_name`}}"
     }
@@ -42,6 +42,6 @@
     }
   ],
   "variables": {
-    "image_name": "backbase-centos"
+    "image_name": "project-centos"
   }
 }

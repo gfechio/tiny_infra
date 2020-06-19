@@ -1,7 +1,7 @@
 # Backbase
 Backbase assignment project.
 
-![Diagram](backbase.png)
+![Diagram](project.png)
 
 ## Understandment
 
@@ -38,8 +38,8 @@ This project was built using the following versions:
 
 - Create Key Pair:
 
-	`aws ec2 create-key-pair --key-name backbase | echo "$(jq -r .KeyMaterial)" > ~/.ssh/backbase.pem`
-	`cmod 400 ~/.ssh/backbase.pem`
+	`aws ec2 create-key-pair --key-name project | echo "$(jq -r .KeyMaterial)" > ~/.ssh/project.pem`
+	`cmod 400 ~/.ssh/project.pem`
 
 - Create a environment var file:
 
@@ -47,7 +47,7 @@ This project was built using the following versions:
 cat > aws_export.env <<EOF
 export access_key="<YOUR_ACCESS_KEY>"
 export secret_key="<YOUR_SECRET_KEY>"
-export private_key="~/.ssh/backbase.pem"
+export private_key="~/.ssh/project.pem"
 EOF
 ```
 - Define AWS policies for you user, following docs in [here](aws/policy/README.md)
@@ -61,11 +61,11 @@ aws eks --region region-code update-kubeconfig --name cluster_name
 
 Executing `run.sh` the following should happen:
 - Download and install AWS cli/ Docker / packer / terraform
-- Create a ECR repo named `tomcat_backbase` for EKS use.
+- Create a ECR repo named `tomcat_project` for EKS use.
 - Deploy an EKS cluster to test tomcat K8S config.
 - Generate and AMI and upload it to AWS to later use.
 	"Most of AWS default AMIs already has curl installed, but packer process is making sure this is true"
-- Instantiate EC2 on public subnet to access google and have backbase.pem to be accesible by SSH with ingress and egress rules.
+- Instantiate EC2 on public subnet to access google and have project.pem to be accesible by SSH with ingress and egress rules.
 - Generate a docker image fetching **sample.war** from Backbase givne URL and adding it to the container under **$CATALINA_HOME**.
 
 
